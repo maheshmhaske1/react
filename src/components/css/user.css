@@ -1,0 +1,30 @@
+#search-btn {
+    background-color: black;
+    /* border-radius: 50%; */
+}
+#btn-filter {
+    background-color: black;
+    /* border-radius: 50%; */
+}
+#user-detail-btn {
+    background-color: black;
+    /* border-radius: 50%; */
+}
+
+#input-search {
+    border: none;
+    border-radius: 0%;
+    border: 1px solid black;
+}
+
+.custom-table {
+  border-collapse: collapse;
+  width: 650px;
+  margin: 0 auto;
+}
+
+.custom-table th, .custom-table td {
+  border: 1px solid black;
+  padding: 2px;
+  text-align: center;
+}
