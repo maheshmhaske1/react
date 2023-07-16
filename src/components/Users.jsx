@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import "./css/user.css";
 import { getUser } from "./HTTP/Api";
 import Home from "./Home";
+import Loader from "./Loader";
 
 function Users() {
   useEffect(() => {
@@ -24,7 +25,6 @@ function Users() {
 
   return (
     <>
-
       <Navbar />
 
       <div className="card shadow p-3 mb-5 m-2">
@@ -139,7 +139,7 @@ function Users() {
                 {users.length === 0 && (
                   <tr>
                     <td className="text-center text-danger" colSpan="12">
-                      <h6>No data found</h6>
+                      <Loader />
                     </td>
                   </tr>
                 )}

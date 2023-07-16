@@ -4,6 +4,7 @@ import "./css/Classes.css";
 import { useNavigate } from "react-router-dom";
 import { addClass, deleteClass, getClasses } from "./HTTP/Api";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 function Classes() {
   useEffect(() => {
@@ -200,7 +201,7 @@ function Classes() {
                     {classes.length === 0 && (
                       <tr>
                         <td className="text-center text-danger" colSpan="12">
-                          <h6>No data found</h6>
+                          <Loader />
                         </td>
                       </tr>
                     )}

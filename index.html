@@ -1,131 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+<html>
+<head>
+  <title>Dynamic Questionnaire</title>
+</head>
+<body>
+  <h1>Dynamic Questionnaire</h1>
 
-  </head>
-  <body>
-    <table border="1" width="650" align="center" style="border-collapse: collapse;text-align: center;"  cellpadding="2" cellspacing="10">
-      <tr>
-        <th colspan="1">
-            <img src="https://www.ezuka.com/assets/logo-ezuka.png" alt=""
-            style="width: 160px;">
-        </th>
-        <th colspan="4">
-            Ezuka Services Ltd <br>
-            Bourne Business Park, 4 Dashwood Lang Rd, Addlestone
-            KT15 2HJ, United Kingdom
-        </th>        
-      </tr>
+  <div id="questionnaire">
+    <!-- Questions and options will be dynamically added here -->
+  </div>
 
-      <tr>
-        <th>Employee Name</th>
-        <td>Chenna M</td>
-        <th style="border: none;"></th>
-        <th>Date Of Joining</th>
-        <td>April/6/2023</td>
-      </tr>
-      </tr>
+  <button onclick="addQuestion()">Add Question</button>
+  <button onclick="submitQuestionnaire()">Submit</button>
 
-      <tr>
-        <th>Employee Code</th>
-        <td>GES-9</td>
-        <th style="border: none;"></th>
-        <th>Place of Posting</th>
-        <td>India</td>
-      </tr>
-      </tr>
-      <tr>
-        <th>Department</th>
-        <td>ERP</td>
-        <th style="border: none;"></th>
-        <th>Working Days</th>
-        <td>23</td>
-      </tr>
-      </tr>
-      <tr>
-        <th>Month</th>
-        <td>Apr-2023</td>
-        <th style="border: none;"></th>
-        <th>Bank / Account
-            Number
-            </th>
-        <td>SBI
-            041010100080951</td>
-      </tr>
-      </tr>
-      <tr>
-        <th>Position</th>
-        <td>Senior Oracle Cons</td>
-        <th style="border: none;"></th>
-        <th>Sort Code</th>
-        <td>202464</td>
-      </tr>
+  <script>
+    var questionIndex = 1;
 
-      <tr>
-        <td colspan="5" style="height: 20px;"></td>
-      </tr>
+    function addQuestion() {
+      var questionnaire = document.getElementById("questionnaire");
 
-      <tr>
-        <th colspan="3">Earnings (Rs)</th>
-        <th colspan="3">Deductions (Rs)</th>
-      </tr>
+      // Create question container
+      var questionContainer = document.createElement("div");
 
-      <tr>
-        <th>Particulars</th>
-        <th>Actual Amount</th>
-        <th>Payable Amt</th>
-        <th>Particulars</th>
-        <th>Amount</th>
-      </tr>
+      // Create question input
+      var questionInput = document.createElement("input");
+      questionInput.type = "text";
+      questionInput.placeholder = "Enter question";
 
-      <tr>
-        <th><b>Basic Salary</b> </th>
-        <td>10,50,000</td>
-        <td>87,500</td>
-        <th>Tax</th>
-        <td>0</td>
-      </tr>
+      // Create options container
+      var optionsContainer = document.createElement("div");
 
-      <tr>
-        <td colspan="3"></td>
-        <th>NI Contribution</th>
-        <td>0</td>
-      </tr>
+      // Create option inputs
+      for (var i = 1; i <= 4; i++) {
+        var optionContainer = document.createElement("div");
 
-      <tr>
-        <th>Incentives</th>
-        <td></td>
-        <td></td>
-        <td colspan="2" style=""></td>
-      </tr>
-      <tr>
-        <th>Arrears</th>
-        <td></td>
-        <td></td>
-        <td colspan="2" style="border: none;"></td>
-      </tr>
+        // Create option input
+        var optionInput = document.createElement("input");
+        optionInput.type = "text";
+        optionInput.placeholder = "Option " + i;
 
-      <tr>
-        <th>Total</th>
-        <td>87,500</td>
-        <td>87,500</td>
-        <th>Total Deductions</th>
-        <td>0</td>
-      </tr>
-      
-      <tr>
-        <td colspan="3"></td>
-        <th>Net Salary </th>
-        <td>87500</td>
-      </tr>
+        optionContainer.appendChild(optionInput);
+        optionsContainer.appendChild(optionContainer);
+      }
 
-      <tr>
-        <td colspan="5"><b>For Ezuka Services Ltd</b>  <br>
-           <i>This is computer generated statement hence signature is not required.</i> </td>
-      </tr>
-    </table>
-  </body>
+      // Create remove question button
+      var removeButton = document.createElement("button");
+      removeButton.textContent = "Remove Question";
+      removeButton.onclick = function () {
+        questionnaire.removeChild(questionContainer);
+      };
+
+      // Append question input, options container, and remove button to question container
+      questionContainer.appendChild(questionInput);
+      questionContainer.appendChild(optionsContainer);
+      questionContainer.appendChild(removeButton);
+
+      // Append question container to questionnaire
+      questionnaire.appendChild(questionContainer);
+    }
+
+    function submitQuestionnaire() {
+      var questionnaire = document.getElementById("questionnaire");
+      var questions = questionnaire.querySelectorAll("div");
+
+      var submittedData = {
+        chapter_id: "6333c356c5526b333ff6bac4",
+        test_data: []
+      };
+
+      // Iterate through each question
+      questions.forEach(function (question) {
+        var questionInput = question.querySelector("input[type='text']");
+        var optionsContainer = question.querySelectorAll("div");
+        var options = [];
+
+        // Iterate through each option
+        optionsContainer.forEach(function (optionContainer) {
+          var optionInput = optionContainer.querySelector("input[type='text']");
+
+          if (optionInput.value.trim() !== "") {
+            options.push(optionInput.value);
+          }
+        });
+
+        if (questionInput.value.trim() !== "" && options.length > 0) {
+          submittedData.test_data.push({
+            question_index: questionIndex,
+            question: questionInput.value,
+            options: options,
+            question_answer: 1 // Assuming the first option is the correct answer
+          });
+          questionIndex++; // Increment question index for the next question
+        }
+      });
+
+      // Display submitted data in console
+      console.log(JSON.stringify(submittedData));
+    }
+  </script>
+</body>
 </html>

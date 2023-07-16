@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const baseURL = "http://35.78.201.111:4001";
 const api = axios.create({
   baseURL: "http://35.78.201.111:4001",
@@ -10,6 +9,17 @@ const api = axios.create({
   },
 });
 
+export const adminLogin = async (payload) => {
+  console.log("payload ==>", payload);
+  try {
+    const response = await api.post("/user/login", payload);
+    console.log("session response -->",response);
+    return response.data;
+  } catch (error) {
+    return "API FAILURE";
+  }
+};
+
 export const getUser = async () => {
   try {
     const response = await api.get("/user/get-allUsers");
@@ -19,6 +29,18 @@ export const getUser = async () => {
     return "API FAILURE";
   }
 };
+
+export const logOut = async () => {
+  try {
+    const response = await api.post("/user/logout");
+    console.log("response ===>", response);
+    return response.data;
+  } catch (error) {
+    console.log(`error in ${baseURL}/user/get-allUsers this api`);
+    return "API FAILURE";
+  }
+};
+
 
 export const getClasses = async () => {
   try {
@@ -102,7 +124,7 @@ export const getChapters = async (payload) => {
 
 export const addChapters = async (payload) => {
   try {
-    const response = await api.post("/class/add-chapter",payload);
+    const response = await api.post("/class/add-chapter", payload);
     console.log("response == >", response);
     return response.data;
   } catch (error) {
@@ -113,11 +135,23 @@ export const addChapters = async (payload) => {
 
 export const deleteChapters = async (payload) => {
   try {
-    const response = await api.delete("/class/delete-chapter",{data:payload});
+    const response = await api.delete("/class/delete-chapter", {
+      data: payload,
+    });
     console.log("response == >", payload);
     return response.data;
   } catch (error) {
     console.log(`error in ${baseURL}/class/get-subject-byClass`);
+    return "API FAILURE";
+  }
+};
+
+export const login = async (payload) => {
+  console.log("payload ==>", payload);
+  try {
+    const response = await api.post("/user/login", payload);
+    return response.data;
+  } catch (error) {
     return "API FAILURE";
   }
 };

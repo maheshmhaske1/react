@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { addChapters, deleteChapters, getChapters } from "./HTTP/Api";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 function Chapters() {
   useEffect(() => {
@@ -242,7 +243,7 @@ function Chapters() {
                     {chapters.length === 0 && (
                       <tr>
                         <td className="text-center text-danger" colSpan="12">
-                          <h6>No chapters found</h6>
+                          <Loader />
                         </td>
                       </tr>
                     )}
@@ -292,72 +293,6 @@ function Chapters() {
           </>
         )}
       </div>
-      {/* SET EXAM  */}
-      <form onSubmit={handleSubmit}>
-        {questions.map((question, index) => (
-          <div key={index}>
-            
-            <h3>Question {question.question_index}</h3>
-            <label>
-              Question:
-              <input
-                id="login-input"
-                type="text"
-                className="form-control"
-                value={question.question}
-                onChange={(e) =>
-                  handleQuestionChange(index, "question", e.target.value)
-                }
-              />
-            </label>
-
-            <label>
-              Options
-              {question.options.map((option, optionIndex) => (
-                <input
-                  key={optionIndex}
-                  type="text"
-                  id="login-input"
-                  className="form-control"
-                  value={option}
-                  onChange={(e) =>
-                    handleOptionChange(index, optionIndex, e.target.value)
-                  }
-                />
-              ))}
-            </label>
-
-            <label>
-              Answer
-              <input
-                type="number"
-                id="login-input"
-                className="form-control"
-                value={question.question_answer}
-                onChange={(e) =>
-                  handleQuestionChange(
-                    index,
-                    "question_answer",
-                    parseInt(e.target.value)
-                  )
-                }
-              />
-            </label>
-
-            {index !== 0 && (
-              <button type="button" onClick={() => handleRemoveQuestion(index)}>
-                Remove Question
-              </button>
-            )}
-          </div>
-        ))}
-
-        <button type="button" onClick={handleAddQuestion}>
-          Add Question
-        </button>
-
-        <button type="submit">Submit</button>
-      </form>
       );
     </>
   );

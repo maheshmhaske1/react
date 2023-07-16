@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { addSubject, deleteSubject, getSubjects } from "./HTTP/Api";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 function Subjects() {
   useEffect(() => {
@@ -191,7 +192,7 @@ function Subjects() {
                     {subjects.length === 0 && (
                       <tr>
                         <td className="text-center text-danger" colSpan="12">
-                          <h6>No data found</h6>
+                          <Loader />
                         </td>
                       </tr>
                     )}

@@ -11,6 +11,7 @@ import UserInfo from "./UserInfo";
 import Classes from "./Classes";
 import Subjects from "./Subjects";
 import Chapters from "./Chapters";
+import SecureRoutes from "./SecureRoutes";
 
 function Pages() {
   return (
@@ -20,11 +21,20 @@ function Pages() {
         <Route path="/*" element={<PageNotFound />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/users/detail" element={<UserInfo />} />
-        <Route path="/class" element={<Classes />} />
-        <Route path="/subject" element={<Subjects />} />
-        <Route path="/chapter" element={<Chapters />} />
+        <Route path="/users" element={<SecureRoutes Component={Users} />} />
+        <Route
+          path="/users/detail"
+          element={<SecureRoutes Component={UserInfo} />}
+        />
+        <Route path="/class" element={<SecureRoutes Component={Classes} />} />
+        <Route
+          path="/subject"
+          element={<SecureRoutes Component={Subjects} />}
+        />
+        <Route
+          path="/chapter"
+          element={<SecureRoutes Component={Chapters} />}
+        />
       </Routes>
 
       <ToastContainer
